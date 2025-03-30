@@ -7,6 +7,5 @@ StartExecutorCommand::StartExecutorCommand(CmdExecutor * executor): cmdExecutor(
 
 void StartExecutorCommand::execute()
 {
-    std::thread thr = std::thread(&CmdExecutor::run, cmdExecutor);
-    thr.detach();
+    new std::thread (&CmdExecutor::run, cmdExecutor);
 }

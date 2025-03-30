@@ -30,8 +30,8 @@ TEST(TestStartExecutorCommand, command_starts_thread)
     MockQueue* mock_queue = new MockQueue();
     CmdExecutor* executor = new CmdExecutor(mock_queue);
     StartExecutorCommand start_command(executor);
-    bool thread_started = false;
-    bool cmd_executed = false;
+    volatile bool thread_started = false;
+    volatile bool cmd_executed = false;
 
     // действи€ при старте потока - подн€тие флага старта
     executor->setActionOnStart(std::function<void(void)>([&thread_started]() {
@@ -43,7 +43,7 @@ TEST(TestStartExecutorCommand, command_starts_thread)
         delete executor;
         }));
 
-    EXPECT_CALL(*mock_queue, isEmpty()).WillOnce(Return(true)).WillRepeatedly(Return(false));
+    EXPECT_CALL(*mock_queue, isEmpty()).WillOnce(Return(false)).WillRepeatedly(Return(true));
     EXPECT_CALL(*mock_queue, pop()).Times(1).WillOnce(Return(mock_command));    
     EXPECT_CALL(*mock_command, execute()).
         Times(1).
