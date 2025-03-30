@@ -37,7 +37,7 @@ TEST(TestHardStopExecutorCommand, command_stop_thread_immediately)
     HardStopExecutorCommand* hard_stop_command = new HardStopExecutorCommand(executor);
     MockCommand* mock_command_snd = new MockCommand();
     
-    bool thread_finished = false;
+    volatile bool thread_finished = false;
 
     // действи€ при завершении потока - подн€тие флага
     executor->setActionOnFinish(std::function<void(void)>([&thread_finished]() {

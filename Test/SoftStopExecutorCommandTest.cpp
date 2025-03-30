@@ -34,7 +34,7 @@ TEST(TestSoftStopExecutorCommand, command_stop_thread_after_no_command_left)
     MockCommand* mock_command_snd = new MockCommand();
     MockCommand* mock_command_trd = new MockCommand();
 
-    bool thread_finished = false;
+    volatile bool thread_finished = false;
 
     // действи€ при завершении потока - подн€тие флага
     executor->setActionOnFinish(std::function<void(void)>([&thread_finished]() {
